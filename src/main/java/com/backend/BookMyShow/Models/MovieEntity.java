@@ -78,5 +78,9 @@ public class MovieEntity {
     public void setListOfShowEntities(List<ShowEntity> listOfShowEntities) {
         this.listOfShowEntities = listOfShowEntities;
     }
+
+    public int getId() {
+        return id;
+    }
 }
 

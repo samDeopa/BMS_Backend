@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MovieRepository extends JpaRepository<MovieEntity, Integer> {
+    //retrieve a movie name using movie name;
+    MovieEntity findByName(String name);
 }

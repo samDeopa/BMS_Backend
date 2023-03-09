@@ -1,4 +1,4 @@
-package com.backend.BookMyShow.ServiceLayer;
+package com.backend.BookMyShow.Models.ServiceLayer;
 
 import com.backend.BookMyShow.Converter.TheaterConvertor;
 import com.backend.BookMyShow.DTOs.RequestDto.TheaterEntryDto;
@@ -52,5 +52,25 @@ public class TheaterService {
         }
 
         return  theaterSeatEntityList;
+    }
+
+    public List<String> getAllTheater() {
+        List<TheaterEntity> theaterEntityList = theaterRepository.findAll();
+        List<String > theaters = new ArrayList<>();
+        for(TheaterEntity theater : theaterEntityList){
+            theaters.add(theater.getName() +" "+ theater.getLocation() +" "+ theater.getId() );
+        }
+        return theaters;
+    }
+
+    //returns the theaters at a specific location
+    public  List<String > getTheaterAt(String location){
+        List<TheaterEntity> theaterEntityList = theaterRepository.findAll();
+        List<String > theaters = new ArrayList<>();
+        for(TheaterEntity theater : theaterEntityList){
+            if(theater.getLocation().equalsIgnoreCase(location) )
+                theaters.add(theater.getName() +" "+ theater.getLocation() +" "+ theater.getId());
+        }
+        return  theaters;
     }
 }

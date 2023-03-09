@@ -1,4 +1,4 @@
-package com.backend.BookMyShow.ServiceLayer;
+package com.backend.BookMyShow.Models.ServiceLayer;
 
 import com.backend.BookMyShow.DTOs.RequestDto.TicketEntryDto;
 import com.backend.BookMyShow.Enums.SeatType;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.ListView;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -105,5 +106,10 @@ public class TicketService {
 
         return amount;
 
+    }
+
+    public String getTicketByTicketId(int  ticketId) {
+            TicketEntity ticket = ticketRepository.findById(ticketId).get();
+            return ticket.getBookedSeats()+ " "+ticket.getMovieName() +" "+ticket.getShowDate() +" "+ticket.getShowTime() ;
     }
 }

@@ -1,6 +1,5 @@
-package com.backend.BookMyShow.ServiceLayer;
+package com.backend.BookMyShow.Models.ServiceLayer;
 
-import com.backend.BookMyShow.ControllerLayer.ShowController;
 import com.backend.BookMyShow.Converter.ShowConvertor;
 import com.backend.BookMyShow.DTOs.RequestDto.ShowEntryDto;
 import com.backend.BookMyShow.Enums.SeatType;
@@ -8,8 +7,6 @@ import com.backend.BookMyShow.Models.*;
 import com.backend.BookMyShow.RepositoryLayers.MovieRepository;
 import com.backend.BookMyShow.RepositoryLayers.ShowRepository;
 import com.backend.BookMyShow.RepositoryLayers.TheaterRepository;
-import com.backend.BookMyShow.RepositoryLayers.TheaterSeatRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.rmi.server.LogStream.log;
 
 
 @Service
@@ -80,5 +75,25 @@ public class ShowService {
             showSeatEntityList.add(showSeatEntity);
         }
         return  showSeatEntityList;
+    }
+
+    public List<String> getShowsByMovieName(String movieName) {
+        MovieEntity movie =  movieRepository.findByName(movieName);
+        List<String> listOfShows = new ArrayList<>();
+        List<ShowEntity> showEntityList = movie.getListOfShowEntities();
+        for(ShowEntity show: showEntityList){
+            listOfShows.add(show.getTheaterEntity().getName()+" " + show.getShowDate()+" "+ show.getShowTime() );
+        }
+        return  listOfShows;
+    }
+
+    public List<String> getShowsByTheaterName(String theaterName) {
+        TheaterEntity theater =  theaterRepository.findByName(theaterName);
+        List<String> listOfShows = new ArrayList<>();
+        List<ShowEntity> showEntityList = theater.getListOfShowEntities();
+        for(ShowEntity show: showEntityList){
+            listOfShows.add(show.getTheaterEntity().getName()+" " + show.getShowDate()+" "+ show.getShowTime() );
+        }
+        return  listOfShows;
     }
 }
